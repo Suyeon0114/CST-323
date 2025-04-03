@@ -39,9 +39,6 @@ public class LoginController {
 	
 	@PostMapping("/doLogin")
 	public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model) {
-		
-		// Log the API call
-		logger.info("Entering LoginController.doLogin()");
 
 		// Check for Validation error
 		if(bindingResult.hasErrors()) {
@@ -56,9 +53,6 @@ public class LoginController {
 	    // Call the OrdersBusinessServiceInterface
 	    service.test();
 	    security.authenticate("username", "password");
-
-		// Log the API call
-		logger.info("Exiting LoginController.doLogin()");
 		
 		return "orders";
 	}
