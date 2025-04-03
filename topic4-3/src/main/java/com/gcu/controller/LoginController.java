@@ -12,6 +12,9 @@ import com.gcu.business.OrdersBusinessServiceInterface;
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.model.LoginModel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.validation.Valid;
 
 
@@ -21,6 +24,7 @@ public class LoginController {
 	
 	@Autowired
 	private OrdersBusinessServiceInterface service;
+	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	@Autowired
 	private SecurityBusinessService security;
@@ -36,6 +40,9 @@ public class LoginController {
 	@PostMapping("/doLogin")
 	public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model) {
 		
+		// Log the API call
+		logger.info("Entering LoginController.doLogin()");
+
 		// Check for Validation error
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("title", "Login Form");
@@ -49,6 +56,9 @@ public class LoginController {
 	    // Call the OrdersBusinessServiceInterface
 	    service.test();
 	    security.authenticate("username", "password");
+
+		// Log the API call
+		logger.info("Exiting LoginController.doLogin()");
 		
 		return "orders";
 	}
